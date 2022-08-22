@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jckj.mapper.UserMapper">
+    <select id="findAll" parameterType="int" resultType="com.jckj.model.User">
+        select user_id userid,
+               user_name username,
+               user_phone userphone,
+               DATE_FORMAT(from_unixtime(create_time / 1000), '%Y-%m-%d %H:%i:%s') createtime,
+               DATE_FORMAT(from_unixtime(update_time / 1000), '%Y-%m-%d %H:%i:%s') updatetime,
+               guardian_id guardianid
+        from t_user_info
+        where is_delete = 0
+            limit #{page}
+            , #{limit}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(user_id)
+        from t_user_info
+        where is_delete = 0
+    </select>
+
+</mapper>
+        <!--        <if test="name !=null and name !=''">-->
+        <!--            and name like concat('%',#{name},'%')-->
+        <!--        </if>-->
+        <!--    &#45;&#45;         order by id desc-->
+        <!-- 总数 --> <!--        <if test="name !=null and name !=''">-->
+        <!--            and name like concat('%',#{name},'%')-->
+        <!--        </if>-->
